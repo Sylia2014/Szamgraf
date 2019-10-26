@@ -1,1 +1,1 @@
-subst T: C:/
+subst T: C:\

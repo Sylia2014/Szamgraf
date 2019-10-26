@@ -22,10 +22,11 @@ bool CMyApp::Init()
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
 
-	glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
+	//glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
 	glEnable(GL_DEPTH_TEST); // mélységi teszt bekapcsolása (takarás)
-	glCullFace(GL_BACK); // GL_BACK: a kamerától "elfelé" nézõ lapok, GL_FRONT: a kamera felé nézõ lapok
+	//glCullFace(GL_BACK); // GL_BACK: a kamerától "elfelé" nézõ lapok, GL_FRONT: a kamera felé nézõ lapok
 
+	glPolygonMode(GL_BACK, GL_LINE);
 	//
 	// geometria letrehozasa
 	//
@@ -33,10 +34,19 @@ bool CMyApp::Init()
 	Vertex vert[] =
 	{ 
 		//          x,  y, z             R, G, B
-		{glm::vec3(-1, -1, 0), glm::vec3(1, 0, 0)},
-		{glm::vec3( 1, -1, 0), glm::vec3(0, 1, 0)},
-		{glm::vec3(-1,  1, 0), glm::vec3(0, 0, 1)},
-		{glm::vec3( 1,  1, 0), glm::vec3(1, 1, 1)},
+		//{glm::vec3( 0, 1, 0),		glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//0
+		//{glm::vec3(-0.5, 0, 0.5),	glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//1
+		//{glm::vec3(0.5,0,0.5),		glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//2
+		//{glm::vec3(0.5,0,-0.5),		glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//3
+		//{glm::vec3(-0.5,0,0.5),		glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//4
+		//{glm::vec3(0,-1,0),			glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) }			//5
+
+		{glm::vec3(0, 2, 0),		glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//0
+		{glm::vec3(-1, 0, 1),		glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//1
+		{glm::vec3(1,0,1),			glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//2
+		{glm::vec3(1,0,-1),			glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//3
+		{glm::vec3(-1,0,1),			glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) },			//4
+		{glm::vec3(0,-2,0),			glm::normalize(glm::vec3(rand() % 256, rand() % 256, rand() % 256)) }			//5
 	};
 
 	// indexpuffer adatai
@@ -45,7 +55,38 @@ bool CMyApp::Init()
 		// 1. háromszög
         0,1,2,
 		// 2. háromszög
-        2,1,3,
+        0,2,3,
+		// 3. háromszög
+        0,3,4,
+		// 4. háromszög
+		0,4,1,
+		// 5. háromszög
+		1,2,5,
+		// 6. háromszög
+		2,3,5,
+		// 7. háromszög
+		3,4,5,
+		// 8. háromszög
+		1,4,5
+
+		//// front
+		// 0, 1, 2,
+		// 2, 3, 0,
+		// // top
+		// 1, 5, 6,
+		// 6, 2, 1,
+		// // back
+		// 7, 6, 5,
+		// 5, 4, 7,
+		// // bottom
+		// 4, 0, 3,
+		// 3, 7, 4,
+		// // left
+		// 4, 5, 1,
+		// 1, 0, 4,
+		// // right
+		// 3, 2, 6,
+		// 6, 7, 3
     };
 
 	// 1 db VAO foglalasa
@@ -189,7 +230,11 @@ void CMyApp::Render()
 		glm::scale<float>( glm::vec3(s_x, s_y, s_z) ) <- léptékezés
 
 	*/
-	m_matWorld = glm::mat4(1.0f);
+
+	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
+	glBindVertexArray(m_vaoID);
+
+	//m_matWorld = glm::mat4(1.0f);
 
 	glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
 
@@ -199,13 +244,11 @@ void CMyApp::Render()
 						GL_FALSE,	// NEM transzponálva
 						&(mvp[0][0]) ); // innen olvasva a 16 x sizeof(float)-nyi adatot
 
-	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
-	glBindVertexArray(m_vaoID);
 
 	// kirajzolás
 	glDrawElements(	GL_TRIANGLES,		// primitív típus
-					6,					// hany csucspontot hasznalunk a kirajzolashoz
-					GL_UNSIGNED_SHORT,	// indexek tipusa
+					24,					// hany csucspontot hasznalunk a kirajzolashoz
+					GL_INT,				// indexek tipusa
 					0);					// indexek cime
 
 	// VAO kikapcsolasa
