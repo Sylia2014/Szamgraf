@@ -1,0 +1,2 @@
+# Szamgraf
+Számítógépes grafika
