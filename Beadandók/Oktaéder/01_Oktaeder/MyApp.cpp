@@ -34,9 +34,9 @@ glm::vec3	CMyApp::GetRandomGombPont()
 	// origó középpontú, egységsugarú gömb parametrikus alakja: http://hu.wikipedia.org/wiki/G%C3%B6mb#Egyenletek 
 	// figyeljünk:	matematikában sokszor a Z tengely mutat felfelé, de nálunk az Y, tehát a legtöbb képlethez képest nálunk
 	//				az Y és Z koordináták felcserélve szerepelnek
-	int u = random_between_two_float(0, 2 * M_PI); //random 0 - 2pi
-	int v = random_between_two_float(0, 2 * M_PI);; //random 0 - 2pi
-	float r = random_between_two_float(0, 10 - sqrt(2)/2);
+	int u = random_between_two_float(0, 2 * M_PI); // random 0 - 2pi
+	int v = random_between_two_float(0, 2 * M_PI);; // random 0 - 2pi
+	float r = random_between_two_float(0, 10 - sqrt(2)/2); // gömb sugara-oktaéder magassága, hogy ne eshessen kívül az alakzat a gömbön 
 	float cu = cosf(u), su = sinf(u), cv = cosf(v), sv = sinf(v);
 	//					x,          z,      y
 	return glm::vec3(r * cu * sv, r * cv, r * su * sv);
@@ -48,9 +48,9 @@ bool CMyApp::Init()
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
 
-	//glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
+	glEnable(GL_CULL_FACE); // kapcsoljuk be a hatrafele nezo lapok eldobasat
 	glEnable(GL_DEPTH_TEST); // mélységi teszt bekapcsolása (takarás)
-	//glCullFace(GL_BACK); // GL_BACK: a kamerától "elfelé" nézõ lapok, GL_FRONT: a kamera felé nézõ lapok
+	glCullFace(GL_BACK); // GL_BACK: a kamerától "elfelé" nézõ lapok, GL_FRONT: a kamera felé nézõ lapok
 
 	//glPolygonMode(GL_BACK, GL_LINE);
 	//
@@ -73,21 +73,21 @@ bool CMyApp::Init()
 	GLushort indices[]=
 	{
 		// 1. háromszög
-		0,2,3,
+		0,3,5,
 		// 2. háromszög
-		0,2,4,
-		// 3. háromszög
 		0,5,4,
+		// 3. háromszög
+		0,4,2,
 		// 4. háromszög
-		0,5,3,
+		0,2,3,
 		// 5. háromszög
-		1,2,4,
-		// 6. háromszög
-		1,2,3,
-		// 7. háromszög
 		1,5,3,
+		// 6. háromszög
+		1,4,5,
+		// 7. háromszög
+		1,2,4,
 		// 8. háromszög
-		1,5,4
+		1,3,2
 	};
 
 	for (int i = 0; i < 7; i++) {
@@ -211,8 +211,8 @@ void CMyApp::Update()
 {
 	// nézeti transzformáció beállítása
 	float t = SDL_GetTicks() / 1000.0f;
-	m_matView = glm::lookAt(glm::vec3(20 * cosf(t), 1, 20 * sinf(t)),	// honnan nézzük a színteret
-	//m_matView = glm::lookAt(glm::vec3(3, 3, 3),		// honnan nézzük a színteret
+	//m_matView = glm::lookAt(glm::vec3(5 * cosf(t), 1, 5 * sinf(t)),	// honnan nézzük a színteret
+	m_matView = glm::lookAt(glm::vec3(20, 10, 20),		// honnan nézzük a színteret
 		glm::vec3(0, 0, 0),		// a színtér melyik pontját nézzük
 		glm::vec3(0, 1, 0));		// felfelé mutató irány a világban
 }
@@ -236,14 +236,20 @@ void CMyApp::Render()
 
 	*/
 
-
-
 	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
 	glBindVertexArray(m_vaoID);
 
+	double u = SDL_GetTicks() / 10000.0 * 2 * M_PI;
+	double v = SDL_GetTicks() / 6000.0 * 2 * M_PI;
+	double r = 8;
+
+	float cu = cosf(u), su = sinf(u), cv = cosf(v), sv = sinf(v);
+
 	for(int i = 0; i < 7; i++)
 	{
-		m_matWorld = glm::translate<float>(gombPontok[i]);
+		m_matWorld = 
+			glm::translate<float>(glm::vec3(r * cu * sv, r * cv, r * su * sv)) *
+			glm::translate<float>(gombPontok[i]);
 		glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
 
 		// majd küldjük át a megfelelõ mátrixot!
@@ -258,8 +264,7 @@ void CMyApp::Render()
 			24,					// hany csucspontot hasznalunk a kirajzolashoz
 			GL_UNSIGNED_SHORT,	// indexek tipusa
 			0);					// indexek cime
-	}
-					
+	}					
 
 	// VAO kikapcsolasa
 	glBindVertexArray(0);
