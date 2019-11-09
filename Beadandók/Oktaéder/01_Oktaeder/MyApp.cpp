@@ -194,6 +194,10 @@ bool CMyApp::Init()
 
 	// shader-beli transzformációs mátrixok címének lekérdezése
 	m_loc_mvp = glGetUniformLocation(m_programID, "MVP");
+	c_loc_intp_end = glGetUniformLocation(m_programID, "intp_end");
+	d_loc_intp_val = glGetUniformLocation(m_programID, "intp_val");
+
+	elozo_ido = SDL_GetTicks();
 
 	return true;
 }
@@ -220,6 +224,9 @@ void CMyApp::Update()
 
 void CMyApp::Render()
 {
+	unsigned int ido = SDL_GetTicks();
+	int delta_t = ido - elozo_ido;
+	elozo_ido = ido;
 	// töröljük a frampuffert (GL_COLOR_BUFFER_BIT) és a mélységi Z puffert (GL_DEPTH_BUFFER_BIT)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -238,6 +245,22 @@ void CMyApp::Render()
 
 	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
 	glBindVertexArray(m_vaoID);
+
+	float intp_n = 0;
+	if (szin > 0) {
+		szin_interpolacios_ertek += delta_t;
+		szin_interpolacios_ertek %= szinvaltas_periodus;
+		if (szin_interpolacios_ertek < szinvaltas_periodus / 2) {
+			intp_n = (float)szin_interpolacios_ertek / (float)(szinvaltas_periodus / 2);
+		}
+		else {
+			intp_n = (float)(szinvaltas_periodus - szin_interpolacios_ertek) / (float)(szinvaltas_periodus / 2);
+		}
+	}
+
+
+	glUniform1f(d_loc_intp_val, intp_n);
+	glUniform3fv(c_loc_intp_end, 1, &szin_ertek[0]);
 
 	double u = SDL_GetTicks() / 10000.0 * 2 * M_PI;
 	double v = SDL_GetTicks() / 6000.0 * 2 * M_PI;
@@ -276,14 +299,48 @@ void CMyApp::Render()
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 {
-	if (key.keysym.sym == 1) {
-		//space_megnyomva = true;
+	switch (key.keysym.sym) {
+	case SDLK_1: {
+		szin = 1;
+		if(!gomb_lenyomva) {
+			szin_interpolacios_ertek = 0;
+			szin_ertek = glm::vec3(1, 0, 0);
+		}
+		break;
 	}
+	case SDLK_2: {
+		szin = 2;
+		if (!gomb_lenyomva) {
+			szin_interpolacios_ertek = 0;
+			szin_ertek = glm::vec3(0, 1, 0);
+		}
+
+		break;
+	}
+	case SDLK_3: {
+		szin = 3;
+		if (!gomb_lenyomva) {
+			szin_interpolacios_ertek = 0;
+			szin_ertek = glm::vec3(0, 0, 1);
+		}
+
+		break;
+	}
+	}
+	gomb_lenyomva = true;
 }
 
 void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 {
-	
+	switch (key.keysym.sym) {
+	case SDLK_1:
+	case SDLK_2:
+	case SDLK_3: {
+		szin = 0;
+		break;
+	} 
+	}
+	gomb_lenyomva = false;
 }
 
 void CMyApp::MouseMove(SDL_MouseMotionEvent& mouse) {}

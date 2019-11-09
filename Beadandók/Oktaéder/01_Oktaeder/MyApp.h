@@ -1,5 +1,4 @@
 #pragma once
-
 // GLEW
 #include <GL/glew.h>
 
@@ -11,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform2.hpp>
+#include <string>
 
 class CMyApp
 {
@@ -56,5 +56,14 @@ protected:
 
 	glm::vec3 GetRandomGombPont();
 	glm::vec3 gombPontok[7];
+	int szin = 0;
+	glm::vec3 szin_ertek;
+	unsigned int elozo_ido = 0;
+	int szin_interpolacios_ertek;
+	const int szinvaltas_periodus = 5000;
+	bool gomb_lenyomva = false;
+
+	GLuint c_loc_intp_end;
+	GLuint d_loc_intp_val;
 };
 
