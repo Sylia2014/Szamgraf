@@ -20,8 +20,31 @@ CMyApp::~CMyApp(void)
 {
 }
 
+float random_between_two_float(float min, float max)
+{
+	return (min + 1) + (((float)rand()) / (float)RAND_MAX) * (max - (min + 1));
+}
+
+//
+// egy parametrikus felület (u,v) paraméterértékekhez tartozó pontjának
+// kiszámítását végzõ függvény
+//
+glm::vec3	CMyApp::GetRandomGombPont()
+{
+	// origó középpontú, egységsugarú gömb parametrikus alakja: http://hu.wikipedia.org/wiki/G%C3%B6mb#Egyenletek 
+	// figyeljünk:	matematikában sokszor a Z tengely mutat felfelé, de nálunk az Y, tehát a legtöbb képlethez képest nálunk
+	//				az Y és Z koordináták felcserélve szerepelnek
+	int u = random_between_two_float(0, 2 * M_PI); //random 0 - 2pi
+	int v = random_between_two_float(0, 2 * M_PI);; //random 0 - 2pi
+	float r = random_between_two_float(0, 10 - sqrt(2)/2);
+	float cu = cosf(u), su = sinf(u), cv = cosf(v), sv = sinf(v);
+	//					x,          z,      y
+	return glm::vec3(r * cu * sv, r * cv, r * su * sv);
+}
+
 bool CMyApp::Init()
 {
+	srand(time(0));
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
 
@@ -66,6 +89,10 @@ bool CMyApp::Init()
 		// 8. háromszög
 		1,5,4
 	};
+
+	for (int i = 0; i < 7; i++) {
+		gombPontok[i] = GetRandomGombPont();	
+	}
 
 	// 1 db VAO foglalasa
 	glGenVertexArrays(1, &m_vaoID);
@@ -184,7 +211,7 @@ void CMyApp::Update()
 {
 	// nézeti transzformáció beállítása
 	float t = SDL_GetTicks() / 1000.0f;
-	m_matView = glm::lookAt(glm::vec3(3 * cosf(t), 1, 3 * sinf(t)),	// honnan nézzük a színteret
+	m_matView = glm::lookAt(glm::vec3(20 * cosf(t), 1, 20 * sinf(t)),	// honnan nézzük a színteret
 	//m_matView = glm::lookAt(glm::vec3(3, 3, 3),		// honnan nézzük a színteret
 		glm::vec3(0, 0, 0),		// a színtér melyik pontját nézzük
 		glm::vec3(0, 1, 0));		// felfelé mutató irány a világban
@@ -209,23 +236,30 @@ void CMyApp::Render()
 
 	*/
 
+
+
 	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
 	glBindVertexArray(m_vaoID);
 
-	glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
+	for(int i = 0; i < 7; i++)
+	{
+		m_matWorld = glm::translate<float>(gombPontok[i]);
+		glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
 
-	// majd küldjük át a megfelelõ mátrixot!
-	glUniformMatrix4fv( m_loc_mvp,		// erre a helyre töltsünk át adatot
-						1,				// egy darab mátrixot
-						GL_FALSE,		// NEM transzponálva
-						&(mvp[0][0]));	// innen olvasva a 16 x sizeof(float)-nyi adatot
+		// majd küldjük át a megfelelõ mátrixot!
+		glUniformMatrix4fv( m_loc_mvp,		// erre a helyre töltsünk át adatot
+			1,				// egy darab mátrixot
+			GL_FALSE,		// NEM transzponálva
+			&(mvp[0][0]));	// innen olvasva a 16 x sizeof(float)-nyi adatot
 
 
-// kirajzolás
-	glDrawElements(	GL_TRIANGLES,		// primitív típus
-					24,					// hany csucspontot hasznalunk a kirajzolashoz
-					GL_UNSIGNED_SHORT,	// indexek tipusa
-					0);					// indexek cime
+		// kirajzolás
+		glDrawElements(	GL_TRIANGLES,		// primitív típus
+			24,					// hany csucspontot hasznalunk a kirajzolashoz
+			GL_UNSIGNED_SHORT,	// indexek tipusa
+			0);					// indexek cime
+	}
+					
 
 	// VAO kikapcsolasa
 	glBindVertexArray(0);
@@ -237,7 +271,9 @@ void CMyApp::Render()
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 {
-	
+	if (key.keysym.sym == 1) {
+		//space_megnyomva = true;
+	}
 }
 
 void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)

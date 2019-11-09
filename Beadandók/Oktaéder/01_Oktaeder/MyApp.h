@@ -53,5 +53,8 @@ protected:
 		glm::vec3 p;
 		glm::vec3 c;
 	};
+
+	glm::vec3 GetRandomGombPont();
+	glm::vec3 gombPontok[7];
 };
 
