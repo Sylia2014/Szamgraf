@@ -47,6 +47,8 @@ protected:
 
 	// mátrixok helye a shaderekben
 	GLuint	m_loc_mvp; // a három mátrixunk szorzatát adjuk át a hatékonyság érdekében
+	GLuint	c_loc_intp_end; //shadernek a szinErtek
+	GLuint	f_loc_intp_val; //shadernek interpolációs érték
 
 	struct Vertex
 	{
@@ -54,16 +56,12 @@ protected:
 		glm::vec3 c;
 	};
 
-	glm::vec3 GetRandomGombPont();
-	glm::vec3 gombPontok[7];
-	int szin = 0;
-	glm::vec3 szin_ertek;
-	unsigned int elozo_ido = 0;
-	int szin_interpolacios_ertek;
-	const int szinvaltas_periodus = 5000;
-	bool gomb_lenyomva = false;
-
-	GLuint c_loc_intp_end;
-	GLuint d_loc_intp_val;
+	glm::vec3 GetRandomGombPont();			//kiad a gömb besejébõl egy pontot
+	glm::vec3 gombPontok[7];				//tömb a 7 random pontnak, ami alapján ki lehet rajzolni 7 oktaédert
+	glm::vec3 szinErtek;					//a kiválasztott szín lesz
+	unsigned int elozoIdo = 0;
+	int szinInterpolaciosErtek;				//az aktuális interpolációs érték, [0-szinvaltasPeriodus] közötti 
+	const int szinvaltasPeriodus = 5000;	//5 mp-es periódus
+	bool gombLenyomva = false;				//1,2,3 gombok
 };
 
