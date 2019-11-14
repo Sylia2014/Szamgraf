@@ -33,19 +33,37 @@ bool CMyApp::Init()
 	Vertex vert[] =
 	{ 
 		//          x,  y, z             R, G, B
-		{glm::vec3(-1, -1, 0), glm::vec3(1, 0, 0)},
-		{glm::vec3( 1, -1, 0), glm::vec3(0, 1, 0)},
-		{glm::vec3(-1,  1, 0), glm::vec3(0, 0, 1)},
-		{glm::vec3( 1,  1, 0), glm::vec3(1, 1, 1)},
+		{glm::vec3(0,0,0), glm::vec3(0,0,0)},		//0
+		{glm::vec3(0,1,0), glm::vec3(0,1,0)},		//1
+		{glm::vec3(1,0,0), glm::vec3(1,0,0)},		//2
+		{glm::vec3(1,1,0), glm::vec3(1,1,0)},		//3
+		{glm::vec3(1,0,1), glm::vec3(1,0,1)},		//4
+		{glm::vec3(1,1,1), glm::vec3(1,1,1)},		//5
+		{glm::vec3(0,0,1), glm::vec3(0,0,1)},		//6
+		{glm::vec3(0,1,1), glm::vec3(0,1,1)}		//7
 	};
 
 	// indexpuffer adatai
     GLushort indices[]=
     {
-		// 1. háromszög
+		//FRONT
         0,1,2,
-		// 2. háromszög
-        2,1,3,
+        1,3,2,
+		//RIGHT
+		2,3,4,
+		3,5,4,
+		//BACK
+		4,5,6,
+		5,7,6,
+		//LEFT
+		6,7,0,
+		7,1,0,
+		//TOP
+		1,7,3,
+		7,5,3,
+		//BOTTOM
+		0,6,2,
+		6,4,2
     };
 
 	// 1 db VAO foglalasa
@@ -165,8 +183,8 @@ void CMyApp::Update()
 {
 	// nézeti transzformáció beállítása
 	float t = SDL_GetTicks() / 1000.0f;
-	m_matView = glm::lookAt(glm::vec3(5 * cosf(t), 5, 5 * sinf(t)),	// honnan nézzük a színteret
-	//m_matView = glm::lookAt(glm::vec3( 5,  5,  5),		// honnan nézzük a színteret
+	//m_matView = glm::lookAt(glm::vec3(5 * cosf(t), 5, 5 * sinf(t)),	// honnan nézzük a színteret
+	m_matView = glm::lookAt(glm::vec3( 5,  5,  5),		// honnan nézzük a színteret
 							glm::vec3( 0,  0,  0),		// a színtér melyik pontját nézzük
 							glm::vec3( 0,  1,  0));		// felfelé mutató irány a világban
 }
@@ -189,25 +207,36 @@ void CMyApp::Render()
 		glm::scale<float>( glm::vec3(s_x, s_y, s_z) ) <- léptékezés
 
 	*/
-	m_matWorld = glm::mat4(1.0f);
 
-	glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
+	std::vector<glm::vec3> kocka_eltolas = std::vector<glm::vec3>{
+		glm::vec3(-1,0,0),
+		glm::vec3(0,0,0),
+		glm::vec3(1,0,0),
+		glm::vec3(0,-1,0),
+		glm::vec3(0,-2,0)
+	};
 
-	// majd küldjük át a megfelelõ mátrixot!
-	glUniformMatrix4fv( m_loc_mvp,// erre a helyre töltsünk át adatot
-						1,			// egy darab mátrixot
-						GL_FALSE,	// NEM transzponálva
-						&(mvp[0][0]) ); // innen olvasva a 16 x sizeof(float)-nyi adatot
+	for(int i = 0; i < 5; i++)
+	{
+		m_matWorld = glm::translate<float>(kocka_eltolas[i]);
 
-	// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
-	glBindVertexArray(m_vaoID);
+		glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
 
-	// kirajzolás
-	glDrawElements(	GL_TRIANGLES,		// primitív típus
-					6,					// hany csucspontot hasznalunk a kirajzolashoz
-					GL_UNSIGNED_SHORT,	// indexek tipusa
-					0);					// indexek cime
+		// majd küldjük át a megfelelõ mátrixot!
+		glUniformMatrix4fv(m_loc_mvp,// erre a helyre töltsünk át adatot
+			1,			// egy darab mátrixot
+			GL_FALSE,	// NEM transzponálva
+			&(mvp[0][0])); // innen olvasva a 16 x sizeof(float)-nyi adatot
 
+		// kapcsoljuk be a VAO-t (a VBO jön vele együtt)
+		glBindVertexArray(m_vaoID);
+
+		// kirajzolás
+		glDrawElements(GL_TRIANGLES,		// primitív típus
+			36,					// hany csucspontot hasznalunk a kirajzolashoz
+			GL_UNSIGNED_SHORT,	// indexek tipusa
+			0);					// indexek cime
+	}
 	// VAO kikapcsolasa
 	glBindVertexArray(0);
 
