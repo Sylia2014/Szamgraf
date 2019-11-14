@@ -47,11 +47,11 @@ bool CMyApp::Init()
     GLushort indices[]=
     {
 		//FRONT
-        0,1,2,
-        1,3,2,
+        0,3,2,
+        3,0,1,
 		//RIGHT
-		2,3,4,
-		3,5,4,
+		4,2,5,
+		2,3,5,
 		//BACK
 		4,5,6,
 		5,7,6,
@@ -62,8 +62,8 @@ bool CMyApp::Init()
 		1,7,3,
 		7,5,3,
 		//BOTTOM
-		0,6,2,
-		6,4,2
+		4,6,0,
+		4,0,2
     };
 
 	// 1 db VAO foglalasa
@@ -208,6 +208,8 @@ void CMyApp::Render()
 
 	*/
 
+	float time;
+
 	std::vector<glm::vec3> kocka_eltolas = std::vector<glm::vec3>{
 		glm::vec3(-1,0,0),
 		glm::vec3(0,0,0),
@@ -216,9 +218,22 @@ void CMyApp::Render()
 		glm::vec3(0,-2,0)
 	};
 
+	if (space_lenyomva % 2 == 1) {
+		//forgatás
+		time = SDL_GetTicks() / 1000.0f * 2 * float(M_PI) / 10;
+		rotate_valtozo = glm::vec3(1, 0, 0);
+	}
+	else {
+		//megállítás
+		time = 0;
+		rotate_valtozo = glm::vec3(1, 0, 0);
+	}
+
 	for(int i = 0; i < 5; i++)
 	{
-		m_matWorld = glm::translate<float>(kocka_eltolas[i]);
+		m_matWorld = 
+			glm::translate<float>(kocka_eltolas[i]) *
+			glm::rotate<float>(time, rotate_valtozo);
 
 		glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
 
@@ -246,6 +261,9 @@ void CMyApp::Render()
 
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 {
+	if (key.keysym.sym == SDLK_SPACE) {
+		space_lenyomva++;
+	}
 }
 
 void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)

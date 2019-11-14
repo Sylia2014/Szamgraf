@@ -53,5 +53,8 @@ protected:
 		glm::vec3 p;
 		glm::vec3 c;
 	};
+
+	int space_lenyomva = 0;
+	glm::vec3 rotate_valtozo;
 };
 
