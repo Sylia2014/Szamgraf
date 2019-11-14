@@ -56,5 +56,8 @@ protected:
 
 	int space_lenyomva = 0;
 	glm::vec3 rotate_valtozo;
+
+	int hasznalhato_pontok [7] = {-4, -2, -1, 0, 1, 2, 4};
+	glm::vec3 get_random_pont();
 };
 
