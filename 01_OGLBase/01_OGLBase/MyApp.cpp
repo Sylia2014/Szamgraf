@@ -305,6 +305,13 @@ void CMyApp::Render()
 	// végül állítsuk vissza
 	glDepthFunc(prevDepthFnc);
 
+	if (ImGui::Begin("MyWindow")) {
+		if (ImGui::Button("MyButton")) {
+			std::cout << "Button clicked! \n";
+		}
+		//ImGui::SliderFloat("slider", &v, 0.0f, 20.0f);
+	}
+	ImGui::End();
 
 	// 1. feladat: készíts egy vertex shader-fragment shader párt, ami tárolt geometria _nélkül_ kirajzol egy tetszõleges pozícióba egy XYZ tengely-hármast,
 	//			   ahol az X piros, az Y zöld a Z pedig kék!
