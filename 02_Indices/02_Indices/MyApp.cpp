@@ -1,5 +1,6 @@
 #include "MyApp.h"
 #include "GLUtils.hpp"
+#include <ctime>
 
 #include <math.h>
 
@@ -19,7 +20,7 @@ CMyApp::~CMyApp(void)
 
 int get_random_int(int min, int max)
 {
-	return (min + 1) + (((int)rand()) / (int)RAND_MAX) * (max - (min + 1));
+	return rand() % (max - min + 1) + min;
 }
 
 glm::vec3 CMyApp::get_random_pont() {
@@ -31,6 +32,7 @@ glm::vec3 CMyApp::get_random_pont() {
 
 bool CMyApp::Init()
 {
+	srand(time(0));
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
 
@@ -77,6 +79,12 @@ bool CMyApp::Init()
 		4,6,0,
 		4,0,2
     };
+
+	for (int i = 0; i < 9; i++) {
+		pontok[i] = get_random_pont();
+
+		std::cout << pontok[i].x << ", " << pontok[i].y << ", " << pontok[i].z << std::endl;
+	}
 
 	// 1 db VAO foglalasa
 	glGenVertexArrays(1, &m_vaoID);
@@ -241,16 +249,12 @@ void CMyApp::Render()
 		rotate_valtozo = glm::vec3(1, 0, 0);
 	}
 
-	
-
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 9; i++)
 	{
-		glm::vec3 eltolas = get_random_pont();
-		std::cout << eltolas.x ;
-		for (int j = 0; j < 9; j++) {
+		for (int j = 0; j < 5; j++) {
 			m_matWorld =
-				glm::translate<float>(eltolas)*
-				glm::translate<float>(kocka_eltolas[i]) *
+				glm::translate<float>(pontok[i])*
+				glm::translate<float>(kocka_eltolas[j]) *
 				glm::rotate<float>(time, rotate_valtozo);
 
 			glm::mat4 mvp = m_matProj * m_matView * m_matWorld;
