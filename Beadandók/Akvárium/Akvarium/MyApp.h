@@ -24,6 +24,7 @@
 
 // mesh
 #include "includes/ObjParser_OGL3.h"
+#include "SpaceShipCamera.h"
 
 class CMyApp
 {
@@ -66,7 +67,7 @@ protected:
 	const int xsd = 60;
 	const int zsd = 60;
 
-	gCamera				m_camera;
+	SpaceShipCamera		m_camera;
 
 	Mesh*				akvarium;
 	Mesh*				hal;

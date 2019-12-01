@@ -165,6 +165,7 @@
     <ClInclude Include="Includes\TextureObject.h" />
     <ClInclude Include="Includes\VertexArrayObject.h" />
     <ClInclude Include="MyApp.h" />
+    <ClInclude Include="SpaceShipCamera.h" />
     <ClInclude Include="T:\OGLPack\include\imgui\imconfig.h" />
     <ClInclude Include="T:\OGLPack\include\imgui\imgui.h" />
     <ClInclude Include="T:\OGLPack\include\imgui\imgui_impl_sdl_gl3.h" />
@@ -186,6 +187,7 @@
     <None Include="Includes\VertexArrayObject.inl" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
+    <ClCompile Include="SpaceShipCamera.cpp" />
     <ClCompile Include="T:\OGLPack\include\imgui\imgui.cpp" />
     <ClCompile Include="T:\OGLPack\include\imgui\imgui_demo.cpp" />
     <ClCompile Include="T:\OGLPack\include\imgui\imgui_draw.cpp" />

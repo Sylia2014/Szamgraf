@@ -69,6 +69,9 @@
     <ClInclude Include="Includes\VertexArrayObject.h">
       <Filter>GL utilities</Filter>
     </ClInclude>
+    <ClInclude Include="SpaceShipCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyApp.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Includes\Mesh_OGL3.cpp">
       <Filter>GL utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceShipCamera.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
