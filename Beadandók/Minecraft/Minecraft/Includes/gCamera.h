@@ -120,5 +120,6 @@ private:
 
 	float	m_goFw;
 	float	m_goRight;
+	bool isGUIOn = false;
 };
 

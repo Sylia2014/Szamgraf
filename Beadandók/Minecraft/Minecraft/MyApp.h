@@ -70,6 +70,6 @@ protected:
 	void InitWorld();
 private:
 	std::vector<std::vector<std::pair<Chunk, ChunkVAO>>> world;
-	static const int worldSize = 10;
+	static const int WORLD_SIZE = 10;
 };
 

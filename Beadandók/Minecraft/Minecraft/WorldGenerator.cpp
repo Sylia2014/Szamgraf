@@ -30,20 +30,20 @@ std::vector<std::vector<Chunk>> WorldGenerator::generateWorld(int dimension)
 					{
 						//Block currentBlock = world[i][j].getBlock(x, y, z);
 						if (y == 0) {
-							world[i][j].getBlock(x, y, z).setBlockType(Bedrock);
+							world[i][j].getBlock(x, y, z).setBlockType(BEDROCK);
 						}
 						else if (y < 45) {
-							world[i][j].getBlock(x, y, z).setBlockType(Stone);
+							world[i][j].getBlock(x, y, z).setBlockType(STONE);
 						}
 						else if (y < height - 1) {
-							world[i][j].getBlock(x, y, z).setBlockType(Dirt);
+							world[i][j].getBlock(x, y, z).setBlockType(DIRT);
 						}
 						else {
-							world[i][j].getBlock(x, y, z).setBlockType(Grass);
+							world[i][j].getBlock(x, y, z).setBlockType(GRASS);
 						}
 					}
 					if (random < 2) {
-						world[i][j].getBlock(x, height, z).setBlockType(Pumpkin);
+						world[i][j].getBlock(x, height, z).setBlockType(PUMPKIN);
 					}
 				}
 			}

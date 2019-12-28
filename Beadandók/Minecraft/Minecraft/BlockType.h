@@ -1,9 +1,9 @@
 #pragma once
 enum BlockType {
-	Air,
-	Bedrock,
-	Stone,
-	Dirt,
-	Grass,
-	Pumpkin
+	AIR,
+	BEDROCK,
+	STONE,
+	DIRT,
+	GRASS,
+	PUMPKIN
 };

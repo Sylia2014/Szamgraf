@@ -7,8 +7,8 @@ public:
 	NoiseGenerator(int seed, int min, int max, int size);
 	int getNoise(int x, int z);
 private:
-	static const double frequency;
-	static const int octaves = 8;
+	static const double FREQUENCY;
+	static const int OCTAVES = 8;
 	int seed;
 	int min;
 	int max;

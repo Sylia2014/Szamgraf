@@ -21,7 +21,7 @@ CMyApp::~CMyApp(void)
 
 void CMyApp::InitWorld()
 {
-	std::vector<std::vector<Chunk>> chunks = WorldGenerator::generateWorld(worldSize);
+	std::vector<std::vector<Chunk>> chunks = WorldGenerator::generateWorld(WORLD_SIZE);
 	for (int i = 0; i < chunks.size(); i++)
 	{
 		world.push_back(std::vector<std::pair<Chunk, ChunkVAO>>());
@@ -185,9 +185,9 @@ void CMyApp::Update()
 				world[i][j].second = ChunkVAO();
 				world[i][j].second.create(
 					world[i][j].first,
-					i == worldSize - 1 ? nullptr : &world[i+1][j].first,
+					i == WORLD_SIZE - 1 ? nullptr : &world[i+1][j].first,
 					i == 0 ? nullptr : &world[i-1][j].first,
-					j == worldSize - 1 ? nullptr : &world[i][j+1].first,
+					j == WORLD_SIZE - 1 ? nullptr : &world[i][j+1].first,
 					j == 0 ? nullptr : &world[i][j-1].first
 				);
 			}

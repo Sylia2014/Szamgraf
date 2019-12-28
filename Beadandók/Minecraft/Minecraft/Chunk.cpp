@@ -14,7 +14,7 @@ Chunk::Chunk(int x, int z) : x(x), z(z) {
 		{
 			for (int k = 0; k < CHUNKSIZE; k++)
 			{
-				data[i][j].push_back(Block(CHUNKSIZE * x + i, j, CHUNKSIZE * z + k, Air));
+				data[i][j].push_back(Block(CHUNKSIZE * x + i, j, CHUNKSIZE * z + k, AIR));
 			}
 		}
 	}

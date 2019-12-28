@@ -19,43 +19,43 @@ void ChunkVAO::create(Chunk chunk, Chunk* xPositive, Chunk* xNegative, Chunk* zP
 			for (int k = 0; k < Chunk::CHUNKSIZE; k++)
 			{
 				Block block = chunk.getBlock(i, j, k);
-				if (block.getType() != Air) {
-					if (k < Chunk::CHUNKSIZE - 1 && chunk.getBlock(i, j, k + 1).getType() == Air) {
+				if (block.getType() != AIR) {
+					if (k < Chunk::CHUNKSIZE - 1 && chunk.getBlock(i, j, k + 1).getType() == AIR) {
 						addSide(block, FRONT);
 					}
-					else if (k == Chunk::CHUNKSIZE - 1 && (zPositive == nullptr || zPositive->getBlock(i, j, 0).getType() == Air)) {
+					else if (k == Chunk::CHUNKSIZE - 1 && (zPositive == nullptr || zPositive->getBlock(i, j, 0).getType() == AIR)) {
 						addSide(block, FRONT);
 					}
 
-					if (k > 0 && chunk.getBlock(i, j, k - 1).getType() == Air) {
+					if (k > 0 && chunk.getBlock(i, j, k - 1).getType() == AIR) {
 						addSide(block, BACK);
 					}
-					else if (k == 0 && (zNegative == nullptr || zNegative->getBlock(i, j, Chunk::CHUNKSIZE - 1).getType() == Air)) {
+					else if (k == 0 && (zNegative == nullptr || zNegative->getBlock(i, j, Chunk::CHUNKSIZE - 1).getType() == AIR)) {
 						addSide(block, BACK);
 					}
 
-					if (i < Chunk::CHUNKSIZE - 1 && chunk.getBlock(i + 1, j, k).getType() == Air) {
+					if (i < Chunk::CHUNKSIZE - 1 && chunk.getBlock(i + 1, j, k).getType() == AIR) {
 						addSide(block, RIGHT);
 					}
-					else if (i == Chunk::CHUNKSIZE - 1 && (xPositive == nullptr || xPositive->getBlock(0, j, k).getType() == Air)) {
+					else if (i == Chunk::CHUNKSIZE - 1 && (xPositive == nullptr || xPositive->getBlock(0, j, k).getType() == AIR)) {
 						addSide(block, RIGHT);
 					}
 
-					if (i > 0 && chunk.getBlock(i - 1, j, k).getType() == Air) {
+					if (i > 0 && chunk.getBlock(i - 1, j, k).getType() == AIR) {
 						addSide(block, LEFT);
 					}
-					else if (i == 0 && (xNegative == nullptr || xNegative->getBlock(Chunk::CHUNKSIZE - 1, j, k).getType() == Air)) {
+					else if (i == 0 && (xNegative == nullptr || xNegative->getBlock(Chunk::CHUNKSIZE - 1, j, k).getType() == AIR)) {
 						addSide(block, LEFT);
 					}
 
-					if (j < Chunk::CHUNKHEIGHT - 1 && chunk.getBlock(i, j + 1, k).getType() == Air) {
+					if (j < Chunk::CHUNKHEIGHT - 1 && chunk.getBlock(i, j + 1, k).getType() == AIR) {
 						addSide(block, TOP);
 					}
 					else if (j == Chunk::CHUNKHEIGHT - 1) {
 						addSide(block, TOP);
 					}
 
-					if (j > 0 && chunk.getBlock(i, j - 1, k).getType() == Air) {
+					if (j > 0 && chunk.getBlock(i, j - 1, k).getType() == AIR) {
 						addSide(block, BOTTOM);
 					}
 					else if (j == 0) {
@@ -85,16 +85,16 @@ int ChunkVAO::getIndicesCount()
 }
 
 glm::vec2 ChunkVAO::getTextureAtlasOffset(BlockType type, BlockFace face) {
-	if (type == Stone) {
+	if (type == STONE) {
 		return glm::vec2(1, 15);
 	}
-	if (type == Bedrock) {
+	if (type == BEDROCK) {
 		return glm::vec2(1, 14);
 	}
-	if (type == Dirt) {
+	if (type == DIRT) {
 		return glm::vec2(2, 15);
 	}
-	if (type == Grass) {
+	if (type == GRASS) {
 		if (face == TOP) {
 			return glm::vec2(0, 15);
 		}
@@ -103,7 +103,7 @@ glm::vec2 ChunkVAO::getTextureAtlasOffset(BlockType type, BlockFace face) {
 		}
 		return glm::vec2(3, 15);
 	}
-	if (type == Pumpkin) {
+	if (type == PUMPKIN) {
 		if (face == TOP) {
 			return glm::vec2(6, 9);
 		}
