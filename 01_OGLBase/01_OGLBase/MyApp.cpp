@@ -26,35 +26,35 @@ void CMyApp::InitCube()
 	std::vector<Vertex>vertices;
 	
 	//front									 
-	vertices.push_back({ glm::vec3(-0.5, -0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(0, 0) });
-	vertices.push_back({ glm::vec3(+0.5, -0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(1, 0) });
-	vertices.push_back({ glm::vec3(-0.5, +0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(0, 1) });
-	vertices.push_back({ glm::vec3(+0.5, +0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(1, 1) });
+	vertices.push_back({ glm::vec3(-0.5, -0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(0, 0), 243 });
+	vertices.push_back({ glm::vec3(+0.5, -0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(1, 0), 243 });
+	vertices.push_back({ glm::vec3(-0.5, +0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(0, 1), 243 });
+	vertices.push_back({ glm::vec3(+0.5, +0.5, +0.5), glm::vec3(0, 0, 1), glm::vec2(1, 1), 243 });
 	//back
-	vertices.push_back({ glm::vec3(+0.5, -0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(0, 0) });
-	vertices.push_back({ glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(1, 0) });
-	vertices.push_back({ glm::vec3(+0.5, +0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(0, 1) });
-	vertices.push_back({ glm::vec3(-0.5, +0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(1, 1) });
+	vertices.push_back({ glm::vec3(+0.5, -0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(0, 0), 243 });
+	vertices.push_back({ glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(1, 0), 243 });
+	vertices.push_back({ glm::vec3(+0.5, +0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(0, 1), 243 });
+	vertices.push_back({ glm::vec3(-0.5, +0.5, -0.5), glm::vec3(0, 0, -1), glm::vec2(1, 1), 243 });
 	//right									 
-	vertices.push_back({ glm::vec3(+0.5, -0.5, +0.5), glm::vec3(1, 0, 0), glm::vec2(0, 0) });
-	vertices.push_back({ glm::vec3(+0.5, -0.5, -0.5), glm::vec3(1, 0, 0), glm::vec2(1, 0) });
-	vertices.push_back({ glm::vec3(+0.5, +0.5, +0.5), glm::vec3(1, 0, 0), glm::vec2(0, 1) });
-	vertices.push_back({ glm::vec3(+0.5, +0.5, -0.5), glm::vec3(1, 0, 0), glm::vec2(1, 1) });
+	vertices.push_back({ glm::vec3(+0.5, -0.5, +0.5), glm::vec3(1, 0, 0), glm::vec2(0, 0), 243 });
+	vertices.push_back({ glm::vec3(+0.5, -0.5, -0.5), glm::vec3(1, 0, 0), glm::vec2(1, 0), 243 });
+	vertices.push_back({ glm::vec3(+0.5, +0.5, +0.5), glm::vec3(1, 0, 0), glm::vec2(0, 1), 243 });
+	vertices.push_back({ glm::vec3(+0.5, +0.5, -0.5), glm::vec3(1, 0, 0), glm::vec2(1, 1), 243 });
 	//left									 
-	vertices.push_back({ glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-1, 0, 0), glm::vec2(0, 0) });
-	vertices.push_back({ glm::vec3(-0.5, -0.5, +0.5), glm::vec3(-1, 0, 0), glm::vec2(1, 0) });
-	vertices.push_back({ glm::vec3(-0.5, +0.5, -0.5), glm::vec3(-1, 0, 0), glm::vec2(0, 1) });
-	vertices.push_back({ glm::vec3(-0.5, +0.5, +0.5), glm::vec3(-1, 0, 0), glm::vec2(1, 1) });
-	//top									 
-	vertices.push_back({ glm::vec3(-0.5, +0.5, +0.5), glm::vec3(0, 1, 0), glm::vec2(0, 0) });
-	vertices.push_back({ glm::vec3(+0.5, +0.5, +0.5), glm::vec3(0, 1, 0), glm::vec2(1, 0) });
-	vertices.push_back({ glm::vec3(-0.5, +0.5, -0.5), glm::vec3(0, 1, 0), glm::vec2(0, 1) });
-	vertices.push_back({ glm::vec3(+0.5, +0.5, -0.5), glm::vec3(0, 1, 0), glm::vec2(1, 1) });
+	vertices.push_back({ glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-1, 0, 0), glm::vec2(0, 0), 243 });
+	vertices.push_back({ glm::vec3(-0.5, -0.5, +0.5), glm::vec3(-1, 0, 0), glm::vec2(1, 0), 243 });
+	vertices.push_back({ glm::vec3(-0.5, +0.5, -0.5), glm::vec3(-1, 0, 0), glm::vec2(0, 1), 243 });
+	vertices.push_back({ glm::vec3(-0.5, +0.5, +0.5), glm::vec3(-1, 0, 0), glm::vec2(1, 1), 243 });
+	//top									 											  
+	vertices.push_back({ glm::vec3(-0.5, +0.5, +0.5), glm::vec3(0, 1, 0), glm::vec2(0, 0), 240 });
+	vertices.push_back({ glm::vec3(+0.5, +0.5, +0.5), glm::vec3(0, 1, 0), glm::vec2(1, 0), 240 });
+	vertices.push_back({ glm::vec3(-0.5, +0.5, -0.5), glm::vec3(0, 1, 0), glm::vec2(0, 1), 240 });
+	vertices.push_back({ glm::vec3(+0.5, +0.5, -0.5), glm::vec3(0, 1, 0), glm::vec2(1, 1), 240 });
 	//bottom								 
-	vertices.push_back({ glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0, -1, 0), glm::vec2(0, 0) });
-	vertices.push_back({ glm::vec3(+0.5, -0.5, -0.5), glm::vec3(0, -1, 0), glm::vec2(1, 0) });
-	vertices.push_back({ glm::vec3(-0.5, -0.5, +0.5), glm::vec3(0, -1, 0), glm::vec2(0, 1) });
-	vertices.push_back({ glm::vec3(+0.5, -0.5, +0.5), glm::vec3(0, -1, 0), glm::vec2(1, 1) });
+	vertices.push_back({ glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0, -1, 0), glm::vec2(0, 0), 242 });
+	vertices.push_back({ glm::vec3(+0.5, -0.5, -0.5), glm::vec3(0, -1, 0), glm::vec2(1, 0), 242 });
+	vertices.push_back({ glm::vec3(-0.5, -0.5, +0.5), glm::vec3(0, -1, 0), glm::vec2(0, 1), 242 });
+	vertices.push_back({ glm::vec3(+0.5, -0.5, +0.5), glm::vec3(0, -1, 0), glm::vec2(1, 1), 242 });
 
 	std::vector<int> indices(36);
 	int index = 0;
@@ -100,6 +100,21 @@ void CMyApp::InitCube()
 		},
 		m_CubeIndices
 	);
+
+	m_CubeVao.Bind();
+	glEnableVertexAttribArray(3);
+	glVertexAttribIPointer(3, sizeof(int), GL_INT, sizeof(Vertex), (void*)((2 * sizeof(glm::vec3)) + sizeof(glm::vec2)));
+	m_CubeVao.Unbind();
+
+	//Textura
+	m_woodTexture.FromFile("assets/atlas.png");
+	glBindTexture(GL_TEXTURE_2D, m_woodTexture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 }
 
 void CMyApp::InitSkyBox()
@@ -190,6 +205,23 @@ void CMyApp::InitShaders()
 
 	m_program.LinkProgram();
 
+	// a shadereket tároló program létrehozása az OpenGL-hez hasonló módon:
+	m_cube.AttachShaders({
+		{ GL_VERTEX_SHADER, "cube.vert"},
+		{ GL_FRAGMENT_SHADER, "cube.frag"}
+		});
+
+	// attributomok osszerendelese a VAO es shader kozt
+	m_cube.BindAttribLocations({
+		{ 0, "vs_in_pos" },				// VAO 0-as csatorna menjen a vs_in_pos-ba
+		{ 1, "vs_in_norm" },			// VAO 1-es csatorna menjen a vs_in_norm-ba
+		{ 2, "vs_in_tex" },				// VAO 2-es csatorna menjen a vs_in_tex-be
+		{ 3, "vs_in_atl_index" },				// VAO 2-es csatorna menjen a vs_in_tex-be
+		});
+
+	m_cube.LinkProgram();
+	
+
 	// shader program rövid létrehozása, egyetlen függvényhívással a fenti három:
 	m_programSkybox.Init(
 		{
@@ -215,7 +247,6 @@ bool CMyApp::Init()
 	InitSkyBox();
 
 	// egyéb textúrák betöltése
-	m_woodTexture.FromFile("assets/wood.jpg");
 	m_suzanneTexture.FromFile("assets/marron.jpg");
 
 	// mesh betoltese
@@ -253,33 +284,29 @@ void CMyApp::Render()
 	glm::mat4 viewProj = m_camera.GetViewProj();
 
 	//Suzanne
-	glm::mat4 suzanneWorld = glm::mat4(1.0f);
+	/*glm::mat4 suzanneWorld = glm::mat4(1.0f);
 	m_program.Use();
 	m_program.SetTexture("texImage", 0, m_suzanneTexture);
 	m_program.SetUniform("MVP", viewProj * suzanneWorld);
 	m_program.SetUniform("world", suzanneWorld);
 	m_program.SetUniform("worldIT", glm::inverse(glm::transpose(suzanneWorld)));
-	m_mesh->draw();
+	m_mesh->draw();*/
 
+	//m_program.Unuse();
 	// kockák
 	//m_program.Use(); nem hívjuk meg újra, hisz ugyanazt a shadert használják
+
+	m_cube.Use();
 	m_CubeVao.Bind();
-	m_program.SetTexture("texImage", 0, m_woodTexture);
+	m_cube.SetTexture("texImage", 0, m_woodTexture);
 	glm::mat4 cubeWorld;
 
-	float time = SDL_GetTicks() / 1000.0f * 2 * float(M_PI) / 10;
-	for (int i = 0; i < 10; ++i)
-	{
-		cubeWorld =
-			glm::rotate(time + 2 * glm::pi<float>() / 10 * i, glm::vec3(0, 1, 0))*
-			glm::translate(glm::vec3(10 + 5 * sin(time), 0, 0))*
-			glm::rotate((i + 1)*time, glm::vec3(0, 1, 0));
-		m_program.SetUniform("MVP", viewProj * cubeWorld);
-		m_program.SetUniform("world", cubeWorld);
-		m_program.SetUniform("worldIT", glm::inverse(glm::transpose(cubeWorld)));
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
-	}
-	m_program.Unuse();
+	m_cube.SetUniform("MVP", viewProj * cubeWorld);
+	m_cube.SetUniform("world", cubeWorld);
+	m_cube.SetUniform("worldIT", glm::inverse(glm::transpose(cubeWorld)));
+	m_cube.SetUniform("atlas_row_count", 16);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+	m_cube.Unuse();
 
 	// skybox
 	// mentsük el az elõzõ Z-test eredményt, azaz azt a relációt, ami alapján update-eljük a pixelt.
@@ -291,7 +318,8 @@ void CMyApp::Render()
 
 	m_SkyboxVao.Bind();
 	m_programSkybox.Use();
-	m_programSkybox.SetUniform("MVP", viewProj * glm::translate( m_camera.GetEye()) );
+	glm::mat4 sky_world = glm::rotate<float>((float)SDL_GetTicks() / 1000.0, glm::vec3(1, 0, 0));
+	m_programSkybox.SetUniform("MVP", viewProj * glm::translate( m_camera.GetEye()) * sky_world);
 	
 	// cube map textúra beállítása 0-ás mintavételezõre és annak a shaderre beállítása
 	glActiveTexture(GL_TEXTURE0);

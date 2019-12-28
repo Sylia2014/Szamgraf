@@ -48,6 +48,7 @@ public:
 protected:
 	// shaderekhez szükséges változók
 	ProgramObject		m_program;			// mesh shader
+	ProgramObject		m_cube;				// mesh shader
 	ProgramObject		m_programSkybox;	// skybox shader
 
 	VertexArrayObject	m_CubeVao;			// VAO
@@ -70,6 +71,7 @@ protected:
 		glm::vec3 p;
 		glm::vec3 n;
 		glm::vec2 t;
+		int texture_index;
 	};
 
 	// mesh adatok
