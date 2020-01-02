@@ -151,8 +151,8 @@ bool CMyApp::Init()
 	textureAtlas.FromFile("assets/atlas.png");
 	glBindTexture(GL_TEXTURE_2D, textureAtlas);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	
@@ -209,6 +209,7 @@ void CMyApp::Render()
 	chunkShader.SetUniform("MVP", viewProj * cubeWorld);
 	chunkShader.SetUniform("world", cubeWorld);
 	chunkShader.SetUniform("worldIT", glm::inverse(glm::transpose(cubeWorld)));
+	chunkShader.SetUniform("view", m_camera.GetViewMatrix());
 	chunkShader.SetUniform("atlas_row_count", 16);
 
 	for (int i = 0; i < world.size(); i++)
